@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import '@fortawesome/fontawesome-free/css/all.css';
+
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-50%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(50%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.8s ease-in-out;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.8s ease-in-out;
+}
+
+
+
+/* Swiper Custom Styles */
+.swiper-pagination {
+  margin-top: 20px; /* Space between pagination dots and cards */
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  top: 50%; /* Vertically center the arrows */
+  transform: translateY(-50%);
+}
+
+.swiper-button-next {
+  right: -30px; /* Add space to the right */
+}
+
+.swiper-button-prev {
+  left: -30px; /* Add space to the left */
+}
