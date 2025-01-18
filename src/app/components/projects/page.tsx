@@ -1,38 +1,67 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ProjectCard from "../projectsCard/page";
-import { client } from "@/sanity/lib/client";
 import { Project } from "../../../../types/types";
+// import { client } from "@/sanity/lib/client";
+// import { Project } from "../../../../types/types";
+// import { Description } from "@mui/icons-material";
 
 function ProjectPage() {
-  const [projects, setProjects] = useState<Project[]>([]);
+  // const [projects, setProjects] = useState<Project[]>([]);
 
-  const CACHE_KEY = "projectsCache";
-  const CACHE_DURATION = 5 * 60 * 1000;
+  const project: Project[] = [
+    { name: "IRTIQA AI",
+      description: "Build A Better World Through Technology",
+      image: "/assets/images/projects/irtiqa-ai-logo.png",
+      slug: "IRTIQAAI",
+    },
+    { name: "Art Generator",
+      description: "Imagine AI Art Generator.",
+      image: "/assets/images/projects/art-generator.png",
+      slug: "ArtGenerator",
+    },
+    { name: "PROSPECTX",
+      description: "All In One Business Solution.",
+      image: "/assets/images/projects/PROSPECTX.png",
+      slug: "PROSPECTX",
+    },
+    { name: "Study.com",
+      description: "Learn faster. Stay motivated. Study smarter",
+      image: "/assets/images/projects/study.png",
+      slug: "Study.com",
+    },
+    { name: "Lazaza",
+      description: "AI-Powered Ads.",
+      image: "/assets/images/projects/lazaza.png",
+      slug: "Lazaza",
+    }
+  ]
+  // const CACHE_KEY = "projectsCache";
+  // const CACHE_DURATION = 5 * 60 * 1000;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const cachedData = localStorage.getItem(CACHE_KEY);
-        const cache = cachedData ? JSON.parse(cachedData) : null;
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const cachedData = localStorage.getItem(CACHE_KEY);
+  //       const cache = cachedData ? JSON.parse(cachedData) : null;
 
-        if (cache && Date.now() - cache.timestamp < CACHE_DURATION) {
-          setProjects(cache.data);
-        } else {
-          const data = await client.fetch(`*[_type == "projectSchema"]`);
-          setProjects(data);
-          localStorage.setItem(
-            CACHE_KEY,
-            JSON.stringify({ data, timestamp: Date.now() })
-          );
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+  //       if (cache && Date.now() - cache.timestamp < CACHE_DURATION) {
+  //         setProjects(cache.data);
+  //       } else {
+  //         const data = await client.fetch(`*[_type == "projectSchema"]`);
+  //         setProjects(data);
+  //         localStorage.setItem(
+  //           CACHE_KEY,
+  //           JSON.stringify({ data, timestamp: Date.now() })
+  //         );
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   return (
     <div className="w-full py-28 from-blue-100 to-blue-50 bg-gradient-to-r min-h-screen flex justify-center items-center">
@@ -49,9 +78,9 @@ function ProjectPage() {
             Explore some of our best projects showcasing innovation and creativity.
           </p>
         </div>
-        {projects.length > 0 ? (
+        {project.length > 0 ? (
           <div className="flex flex-col gap-16 md:gap-8 sm:gap-2">
-            {projects.map((project: Project, index: number) => (
+            {project.map((project: Project, index: number) => (
               <div
                 key={index}
                 className={`flex ${index % 2 === 0 ? "justify-start" : "justify-end"} flex-col sm:flex-row`}
@@ -65,7 +94,7 @@ function ProjectPage() {
                     name={project.name}
                     description={project.description}
                     image={project.image}
-                    slug={project.slug?.current}
+                    slug={project.slug}
                   />
                 </div>
               </div>

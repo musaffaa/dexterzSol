@@ -1,18 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { client } from "@/sanity/lib/client";
-import imageUrlBuilder from "@sanity/image-url";
 import Image from "next/image";
 import Link from "next/link";
-
-// Create a builder instance for the Sanity client
-const builder = imageUrlBuilder(client);
 
 const ProjectsFeatures = [
   {
     title: "Study.com",
-    slug: "KeyFeaturesStudyCom",
+    image: "/assets/images/projects/study.png",
+    slug: "Study.com",
     miniDetails:
       "Discover the comprehensive and accessible educational features of Study.com designed for learners of all levels.",
     benefits: [
@@ -74,7 +70,8 @@ const ProjectsFeatures = [
   },
   {
     title: "Art Generator",
-    slug: "KeyFeaturesMarvanArtifyWeb",
+    image: "/assets/images/projects/art-generator.png",
+    slug: "ArtGenerator",
     miniDetails:
       "Explore the innovative and design-driven features of Marvan Artify Web, blending creativity with technology for captivating digital experiences.",
     benefits: [
@@ -137,7 +134,8 @@ const ProjectsFeatures = [
 
   {
     title: "PROSPECTX",
-    slug: "KeyFeaturesProspectx",
+    image: "/assets/images/projects/PROSPECTX.png",
+    slug: "PROSPECTX",
     miniDetails:
       "Discover how Prospectx revolutionizes customer acquisition and lead generation with advanced analytics and AI-driven strategies.",
     benefits: [
@@ -200,7 +198,8 @@ const ProjectsFeatures = [
 
   {
     title: "IRTIQA AI",
-    slug: "KeyFeaturesIrtiqaAI",
+    image: "/assets/images/projects/irtiqa-ai-logo.png",
+    slug: "IRTIQAAI",
     miniDetails:
       "Learn how IRTIQA AI empowers businesses with AI-driven solutions for automation, content generation, and process optimization.",
     benefits: [
@@ -263,7 +262,8 @@ const ProjectsFeatures = [
 
   {
     title: "Lazaza",
-    slug: "KeyFeaturesLazazaAI",
+    image: "/assets/images/projects/lazaza.png",
+    slug: "Lazaza",
     miniDetails:
       "Simplify digital advertising with Lazaza.ai, an AI-powered platform for creating, managing, and optimizing ad campaigns.",
     benefits: [
@@ -327,76 +327,41 @@ const ProjectsFeatures = [
 
 const Details = () => {
   const [project, setProject] = useState(null);
-  const [projects, setProjects] = useState([]);
   const [slug, setSlug] = useState(null);
-  const [projectFeatures, setProjectFeatures] = useState(null);
-
-  const CACHE_KEY = "projectsDetailsCache";
-  const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
 
   const pathname = usePathname();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const cachedData = localStorage.getItem(CACHE_KEY);
-        const cache = cachedData ? JSON.parse(cachedData) : null;
-
-        if (cache && Date.now() - cache.timestamp < CACHE_DURATION) {
-          setProjects(cache.data);
-        } else {
-          const data = await client.fetch(`*[_type == "projectSchema"]`);
-          setProjects(data);
-          localStorage.setItem(
-            CACHE_KEY,
-            JSON.stringify({ data, timestamp: Date.now() })
-          );
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
+    // Get the slug from the pathname
     const slugFromPath = pathname?.split("/").pop();
     setSlug(slugFromPath || null);
+    console.log("Slug from Path:", slugFromPath);
   }, [pathname]);
 
   useEffect(() => {
-    if (slug && projects.length > 0) {
-      const dataFind = projects.find((data) => data.slug.current === slug);
+    if (slug) {
+      const dataFind = ProjectsFeatures.find((data) => data.slug === slug);
       setProject(dataFind || null);
-
-      if (dataFind) {
-        const matchingFeatures = ProjectsFeatures.find(
-          (feature) => feature.title === dataFind.name
-        );
-        setProjectFeatures(matchingFeatures || null);
-      }
+      console.log("Found project:", dataFind);
     }
-  }, [slug, projects]);
-
-  const urlFor = (source) => builder.image(source).width(800).url();
+  }, [slug]);
 
   return (
     <>
       {/* Header Section */}
       <div className="flex flex-col lg:flex-row bg-white mx-4 lg:mx-20 min-h-[40vh] justify-center items-center gap-8 lg:gap-16 py-10">
         <div className="flex flex-col text-center lg:text-left">
-          <h1 className="text-4xl lg:text-6xl font-bold">{project?.name}</h1>
+          <h1 className="text-4xl lg:text-6xl font-bold">{project?.title}</h1>
           <p className="mt-5 text-lg lg:text-2xl max-w-[550px] mx-auto lg:mx-0">
-            {projectFeatures?.miniDetails ||
+            {project?.miniDetails ||
               "Discover the features and details of this amazing project."}
           </p>
         </div>
         <div className="max-w-7xl lg:w-1/3 flex justify-center">
-          {project?.image?.asset ? (
+          {project?.image ? (
             <Image
-              src={urlFor(project.image.asset)}
-              alt={project?.name || "Project Image"}
+              src={project.image}
+              alt={project.title || "Project Image"}
               width={400}
               height={400}
               className="rounded-lg object-cover transition-transform duration-300 ease-in-out transform hover:scale-105"
@@ -415,7 +380,7 @@ const Details = () => {
             Key Features
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projectFeatures?.benefits?.map((benefit, idx) => (
+            {project?.benefits?.map((benefit, idx) => (
               <div
                 key={idx}
                 className="p-6 bg-white shadow-md rounded-lg flex flex-col items-center text-center"

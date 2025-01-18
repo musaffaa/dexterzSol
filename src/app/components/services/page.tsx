@@ -1,29 +1,27 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ServicesCard from "../sercivesCard/page";
-import { client } from "@/sanity/lib/client";
-import { Service } from "../../../../types/types";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import Link from "next/link";
-import { ServicesType } from "../../../../types/types";
+import { Services } from "../../../../types/types";
 import { Swiper, SwiperSlide } from "swiper/react"; // Import Swiper components
 import "swiper/css"; // Import Swiper styles
 import "swiper/css/navigation"; // Optional styles for navigation
 import "swiper/css/pagination"; // Optional styles for pagination
 import { Navigation, Pagination } from "swiper/modules"; // Import Swiper modules
 import { Autoplay } from "swiper/modules";
-import {useMediaQuery} from '@react-hook/media-query'
-
-
+import { useMediaQuery } from "@react-hook/media-query";
 
 interface ServicesPageProps {
   viewType: "Home" | "Services"; // Prop to determine the layout (Home or Services view)
 }
 
-export const servicesArr: ServicesType[] = [
+export const servicesArr: Services[] = [
   {
     title: "App Development",
     slug: "AppDevelopment",
+    description: "Turning your ideas into innovative, high-performance apps.",
+    image: "/assets/images/projects/irtiqa-ai-logo.png",
     tags: ["Custom Apps", "iOS & Android", "User-Friendly"],
     lottieImg:
       "https://lottie.host/61621bcf-2bca-443c-9a5d-0a955f562bf8/ad85gOTX4h.lottie",
@@ -72,6 +70,8 @@ export const servicesArr: ServicesType[] = [
   {
     title: "Generative AI",
     slug: "GenerativeAI",
+    description: "Bringing Your Game Visions to Life with Precision and Passion.",
+    image: "/assets/images/projects/irtiqa-ai-logo.png",
     tags: ["AI-Powered Solutions", "Machine Learning", "Cutting-Edge Tech"],
     lottieImg:
       "https://lottie.host/18c67767-e41a-477f-93cf-790920be4def/3qw6cOiCXq.lottie",
@@ -120,6 +120,8 @@ export const servicesArr: ServicesType[] = [
   {
     title: "Web Development",
     slug: "WebDevelopment",
+    description: "Building responsive and scalable websites tailored to your needs.",
+    image: "/assets/images/projects/irtiqa-ai-logo.png",
     tags: ["Responsive Design", "SEO-Optimized", "Fast Loading"],
     lottieImg:
       "https://lottie.host/21454b07-1152-4135-9d23-148900b7812b/uDxNM1EnZt.lottie",
@@ -168,6 +170,8 @@ export const servicesArr: ServicesType[] = [
   {
     title: "Database Security",
     slug: "DatabaseSecurity",
+    description: "Fortifying your data with cutting-edge security solutions.",
+    image: "/assets/images/projects/irtiqa-ai-logo.png",
     tags: ["Data Encryption", "Access Control", "Secure Architecture"],
     lottieImg:
       "https://lottie.host/0d1fcf45-e2cb-447d-ad2b-98c40c8a1fb9/sg9mYTAEsp.lottie",
@@ -216,6 +220,8 @@ export const servicesArr: ServicesType[] = [
   {
     title: "Blockchain Development",
     slug: "BlockchainDevelopment",
+    description: "Unlocking Innovation Through Decentralized Technology",
+    image: "/assets/images/projects/irtiqa-ai-logo.png",
     tags: ["Smart Contracts", "Decentralized Apps", "Secure Transactions"],
     lottieImg:
       "https://lottie.host/0bbca5ce-f628-4e5d-a730-29b4f8c0c8d0/eSsaAJGhLZ.lottie",
@@ -264,6 +270,8 @@ export const servicesArr: ServicesType[] = [
   {
     title: "UI/UX Design",
     slug: "UIUXDesign",
+    description: "Crafting tailor-made software to solve your unique challenges.",
+    image: "/assets/images/projects/irtiqa-ai-logo.png",
     tags: ["Intuitive Design", "Enhanced Usability", "Modern Aesthetics"],
     lottieImg:
       "https://lottie.host/5ec4fda7-7e1b-4bd7-b811-85c9c6da83c2/5Eo8m30kcz.lottie",
@@ -312,6 +320,8 @@ export const servicesArr: ServicesType[] = [
   {
     title: "Game Development",
     slug: "GameDevelopment",
+    description: "Bringing Your Game Visions to Life with Precision and Passion.",
+    image: "/assets/images/projects/irtiqa-ai-logo.png",
     tags: ["Immersive Experiences", "Cross-Platform", "Advanced Graphics"],
     lottieImg:
       "https://lottie.host/d54fad76-4ee7-4210-9dbb-24d27764fb59/Am6ob0nDN0.lottie",
@@ -360,54 +370,48 @@ export const servicesArr: ServicesType[] = [
 ];
 
 function ServicesPage({ viewType = "Services" }: ServicesPageProps) {
-
   // Using a single media query
-  const matches = useMediaQuery('only screen and (max-width: 768px)')
+  const matches = useMediaQuery("only screen and (max-width: 768px)");
   //console.log("MMM: ",matches)
 
-  const [services, setServices] = useState<Service[]>([]); // State to store the list of services
 
-  const CACHE_KEY = "servicesCache"; // Key to store/retrieve data in localStorage
-  const CACHE_DURATION = 5 * 60 * 1000; // Cache duration (5 minutes in milliseconds)
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const cachedData = localStorage.getItem(CACHE_KEY); // Check if data exists in cache
+  //       const cache = cachedData ? JSON.parse(cachedData) : null;
 
-  
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const cachedData = localStorage.getItem(CACHE_KEY); // Check if data exists in cache
-        const cache = cachedData ? JSON.parse(cachedData) : null;
+  //       if (cache && Date.now() - cache.timestamp < CACHE_DURATION) {
+  //         // If cache is valid, use cached data
+  //         setServices(cache.data);
+  //       } else {
+  //         // Otherwise, fetch fresh data from the Sanity API
+  //         const data = await client.fetch(`*[_type == "servicesSchema"]`);
+  //         const enrichedServices = data.map((service: Service) => {
+  //           const match = servicesArr.find(
+  //             (item) => item.title === service.name
+  //           ); // Match by name
+  //           return {
+  //             ...service,
+  //             tags: match ? match.tags : [],
+  //             lottieImg: match ? match.lottieImg : "",
+  //           };
+  //         });
+  //         setServices(enrichedServices); // Set the enriched services
 
-        if (cache && Date.now() - cache.timestamp < CACHE_DURATION) {
-          // If cache is valid, use cached data
-          setServices(cache.data);
-        } else {
-          // Otherwise, fetch fresh data from the Sanity API
-          const data = await client.fetch(`*[_type == "servicesSchema"]`);
-          const enrichedServices = data.map((service: Service) => {
-            const match = servicesArr.find(
-              (item) => item.title === service.name
-            ); // Match by name
-            return {
-              ...service,
-              tags: match ? match.tags : [],
-              lottieImg: match ? match.lottieImg : "",
-            };
-          });
-          setServices(enrichedServices); // Set the enriched services
+  //         // Store the fetched data in localStorage with a timestamp
+  //         localStorage.setItem(
+  //           CACHE_KEY,
+  //           JSON.stringify({ data: enrichedServices, timestamp: Date.now() })
+  //         );
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
 
-          // Store the fetched data in localStorage with a timestamp
-          localStorage.setItem(
-            CACHE_KEY,
-            JSON.stringify({ data: enrichedServices, timestamp: Date.now() })
-          );
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   return (
     <div className="w-full">
@@ -416,11 +420,11 @@ function ServicesPage({ viewType = "Services" }: ServicesPageProps) {
           modules={[Navigation, Pagination, Autoplay]} // Use required Swiper modules
           spaceBetween={0} // Space between slides
           //navigation = {!matches} // Enables navigation buttons
-          
+
           pagination={{ clickable: true }} // Enables pagination
           className="w-[100%]"
           style={{
-            paddingInline:matches?0:"25px"
+            paddingInline: matches ? 0 : "25px",
           }}
           autoplay={{ delay: 2000 }} // Autoplay with 2 seconds delay
           loop
@@ -431,55 +435,55 @@ function ServicesPage({ viewType = "Services" }: ServicesPageProps) {
             1440: { slidesPerView: 4 },
           }}
         >
-          {services.map((service: Service, index: number) => (
-            <SwiperSlide key={index} >
-              <div className={`px-0 md:px-0 lg:px xl:p w-[90%] min-w-[300px] mb-10 h-auto m-auto pb-6`}>
+          {servicesArr.map((service: Services, index: number) => (
+            <SwiperSlide key={index}>
+              <div
+                className={`px-0 md:px-0 lg:px xl:p w-[90%] min-w-[300px] mb-10 h-auto m-auto pb-6`}
+              >
                 <ServicesCard
-                  name={service.name}
+                  name={service.title}
                   description={service.description}
                   image={service.image}
-                  slug={service.slug?.current}
+                  slug={service.slug}
                 />
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
-      ) : viewType === "Services" && services.length > 0 ? (
+      ) : viewType === "Services" ? (
         <div className="from-blue-100 to-blue-50 bg-gradient-to-r min-h-[100vh] py-10">
           <div className="container mx-auto px-4">
-            <h2 className="text-center text-4xl font-bold mb-10">Our Services</h2>
+            <h2 className="text-center text-4xl font-bold mb-10">
+              Our Services
+            </h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {services.map((service, index) => (
+              {servicesArr.map((service, index) => (
                 <div
                   key={index}
                   className="bg-white shadow-lg rounded-lg p-6 flex flex-col md:flex-row items-center gap-4"
                 >
                   <div className="flex-1">
-                    <h3 className="text-xl font-semibold mb-2">{service.name}</h3>
+                    <h3 className="text-xl font-semibold mb-2">
+                      {service.title}
+                    </h3>
                     <p className="text-gray-600 mb-3">{service.description}</p>
                     <div className="flex flex-wrap gap-2 mb-4">
-                      {servicesArr
-                        .find((item) => item.title === service.name)
-                        ?.tags.map((tag, tagIndex) => (
-                          <span
-                            key={tagIndex}
-                            className="bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm"
-                          >
-                            {tag}
-                          </span>
-                        ))}
+                      {service.tags.map((tag, tagIndex) => (
+                        <span
+                          key={tagIndex}
+                          className="bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm"
+                        >
+                          {tag}
+                        </span>
+                      ))}
                     </div>
                     <div className="flex gap-3 flex-wrap">
                       <button className="bg-black text-white px-4 py-2 rounded">
                         <Link href="/components/contact">Let&apos;s Chat</Link>
                       </button>
                       <button className="bg-gray-200 text-black px-4 py-2 rounded">
-                        <Link
-                          href={
-                            servicesArr.find((item) => item.title === service.name)?.url || "/fallback-url"
-                          }
-                        >
+                        <Link href={service.url || "/fallback-url"}>
                           See Details
                         </Link>
                       </button>
@@ -488,10 +492,7 @@ function ServicesPage({ viewType = "Services" }: ServicesPageProps) {
 
                   <div className="w-full md:w-1/3 flex justify-center">
                     <DotLottieReact
-                      src={
-                        servicesArr.find((item) => item.title === service.name)
-                          ?.lottieImg
-                      }
+                      src={service.lottieImg}
                       loop
                       autoplay
                       width={150}

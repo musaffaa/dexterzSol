@@ -3,15 +3,12 @@ import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { servicesArr } from "../../services/page";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import { ServicesType } from "../../../../../types/types";
 import Link from "next/link";
 
 function Page() {
   const [Slug, setSlug] = useState<string | null>(null);
-  const [Arr, setArr] = useState<ServicesType[]>(); // State to hold services data
 
   const setServicesDataAndSlug = async () => {
-    await setArr(servicesArr);
     const slugFromPath = pathname?.split("/").pop();
     await setSlug(slugFromPath || null);
   };
@@ -21,7 +18,7 @@ function Page() {
     setServicesDataAndSlug();
   }, [pathname]);
 
-  const currentService = Arr?.find((items) => items.slug === Slug); // Find the matching service
+  const currentService = servicesArr?.find((items) => items.slug === Slug); // Find the matching service
 
   return (
     <>

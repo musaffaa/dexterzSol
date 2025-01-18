@@ -1,17 +1,8 @@
 export type Project = {
   name: string;
   description: string;
-  image: {
-    asset: {
-      _ref: string;
-      url: string;
-    };
-  };
-  slug: {
-    current: string
-    _type: string
-  };
-  detail: string
+  image: string,
+  slug: string,
 };
 
 export type Service = {
@@ -32,9 +23,11 @@ export type Service = {
 
 
 
-export type ServicesType = {
+export type Services = {
   title: string;
   slug: string;
+  description: string,
+  image: string,
   tags: string[];
   lottieImg: string;
   url: string;
@@ -50,24 +43,14 @@ export type ServicesType = {
 export type ServicesCardProp = {
   name: string;
   description: string;
-  image: {
-    asset: {
-      _ref: string;
-      url: string;
-    };
-  };
+  image: string,
   slug: string;
 };
 
 export type ProjectCardProps = {
   name: string;
   description: string;
-  image: {
-    asset: {
-      _ref: string;
-      url: string;
-    };
-  };
+  image: string,
   slug: string;
 };
 

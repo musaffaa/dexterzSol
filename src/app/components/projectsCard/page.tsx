@@ -1,13 +1,7 @@
 import React from "react";
-import imageUrlBuilder from "@sanity/image-url";
-import { client } from "@/sanity/lib/client";
 import { ProjectCardProps } from "../../../../types/types";
-import { ImageSource } from "../../../../types/types";
 import Link from "next/link";
-
-const builder = imageUrlBuilder(client);
-
-const urlFor = (source: ImageSource) => builder.image(source).width(800).url();
+import Image from "next/image";
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
   name,
@@ -20,15 +14,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       {/* Card Background with Hover Scaling */}
       <div className="relative bg-gradient-to-br from-gray-100 via-white to-gray-50 rounded-2xl p-8 shadow-lg transform transition-transform duration-500 hover:scale-105 hover:shadow-2xl">
         {/* Floating Image */}
-        {image?.asset && (
-          <div className="lg:absolute relative rotate-0 top-0 right-0 lg:-top-20 lg:-right-20 w-32 h-40 transform lg:rotate-6 overflow-hidden transition-transform duration-500 hover:rotate-0">
-            <img
-              src={urlFor(image.asset)}
-              alt={name}
-              className="w-full h-full object-cover rounded-xl shadow-md"
-            />
-          </div>
-        )}
+        <div className="lg:absolute relative rotate-0 top-0 right-0 lg:-top-20 lg:-right-20 w-32 h-40 transform lg:rotate-6 overflow-hidden transition-transform duration-500 hover:rotate-0">
+          <Image
+            src={image}
+            alt={name}
+            width={100}
+            height={100}
+            className="w-full h-full object-cover rounded-xl shadow-md"
+          />
+        </div>
 
         {/* Card Content */}
         <div className="z-10 text-left">
