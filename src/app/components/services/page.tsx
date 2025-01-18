@@ -15,7 +15,6 @@ import { useMediaQuery } from "@react-hook/media-query";
 interface ServicesPageProps {
   viewType: "Home" | "Services"; // Prop to determine the layout (Home or Services view)
 }
-
 export const servicesArr: Services[] = [
   {
     title: "App Development",
