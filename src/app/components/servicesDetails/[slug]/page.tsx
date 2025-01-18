@@ -4,21 +4,25 @@ import { usePathname } from "next/navigation";
 import { servicesArr } from "../../services/page";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import Link from "next/link";
+import { Services } from "../../../../../types/types";
 
 function Page() {
-  const [Slug, setSlug] = useState<string | null>(null);
-
-  const setServicesDataAndSlug = async () => {
-    const slugFromPath = pathname?.split("/").pop();
-    await setSlug(slugFromPath || null);
-  };
+  const [slug, setSlug] = useState<string | null>(null);
+  const [currentService, setCurrentService] = useState<Services | null>(null);
 
   const pathname = usePathname(); // Get the current pathname
+
   useEffect(() => {
-    setServicesDataAndSlug();
+    const slugFromPath = pathname?.split("/").pop();
+    setSlug(slugFromPath || null);
   }, [pathname]);
 
-  const currentService = servicesArr?.find((items) => items.slug === Slug); // Find the matching service
+  useEffect(() => {
+    if (slug) {
+      const serviceData: Services = servicesArr.find((item) => item.slug === slug);
+      setCurrentService(serviceData || null);
+    }
+  }, [slug]);
 
   return (
     <>
@@ -26,20 +30,26 @@ function Page() {
       <div className="flex flex-col lg:flex-row bg-white mx-4 lg:mx-20 min-h-[40vh] justify-center items-center gap-8 lg:gap-16 py-10">
         <div className="flex flex-col text-center lg:text-left">
           <h1 className="text-4xl lg:text-6xl font-bold">
-            {currentService?.title}
+            {currentService?.title || "Service Title"}
           </h1>
           <p className="mt-5 text-lg lg:text-2xl max-w-[550px] mx-auto lg:mx-0">
-            {currentService?.miniDetails}
+            {currentService?.miniDetails ||
+              "Short description about the service."}
           </p>
         </div>
-        <div className="max-w-7xl lg:w-1/3 flex justify-center">
-          <DotLottieReact
-            src={currentService?.lottieImg} // Provide a default fallback URL if needed
-            loop
-            autoplay
-            width={501}
-            height={501}
-          />
+        <div className="max-w-[81rem] lg:w-1/3 flex justify-center">
+          {currentService?.lottieImg ? (
+            <DotLottieReact
+              src={currentService.lottieImg}
+              loop
+              autoplay
+              width={153}
+              height={153}
+              style={{width:'97%', height:'97%'}}
+            />
+          ) : (
+            <p>No animation available</p>
+          )}
         </div>
       </div>
 
@@ -50,25 +60,28 @@ function Page() {
             Key Benefits
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {currentService?.benefits?.map((benefit, idx) => (
-              <div
-                key={idx}
-                className="p-6 bg-white shadow-md rounded-lg flex flex-col items-center text-center"
-              >
-                {/* Benefit Icon */}
-                <div className="w-16 h-16 flex items-center justify-center bg-purple-100 text-purple-600 rounded-full text-4xl mb-4">
-                  {benefit.icon}
+            {currentService?.benefits?.length ? (
+              currentService.benefits.map((benefit, idx) => (
+                <div
+                  key={idx}
+                  className="p-6 bg-white shadow-md rounded-lg flex flex-col items-center text-center"
+                >
+                  <div className="w-16 h-16 flex items-center justify-center bg-purple-100 text-purple-600 rounded-full text-4xl mb-4">
+                    {benefit.icon}
+                  </div>
+                  <h3 className="text-xl lg:text-2xl font-semibold mb-4">
+                    {benefit.heading}
+                  </h3>
+                  <p className="text-gray-600 text-sm lg:text-base">
+                    {benefit.details}
+                  </p>
                 </div>
-                {/* Benefit Heading */}
-                <h3 className="text-xl lg:text-2xl font-semibold mb-4">
-                  {benefit.heading}
-                </h3>
-                {/* Benefit Details */}
-                <p className="text-gray-600 text-sm lg:text-base">
-                  {benefit.details}
-                </p>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p className="text-center col-span-3 text-gray-500">
+                No benefits available at this time.
+              </p>
+            )}
           </div>
         </div>
       </div>

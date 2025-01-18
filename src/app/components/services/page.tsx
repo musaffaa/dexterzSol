@@ -20,7 +20,7 @@ export const servicesArr: Services[] = [
     title: "App Development",
     slug: "AppDevelopment",
     description: "Turning your ideas into innovative, high-performance apps.",
-    image: "/assets/images/projects/irtiqa-ai-logo.png",
+    image: "/assets/images/services/AppDevelopment.png",
     tags: ["Custom Apps", "iOS & Android", "User-Friendly"],
     lottieImg:
       "https://lottie.host/61621bcf-2bca-443c-9a5d-0a955f562bf8/ad85gOTX4h.lottie",
@@ -70,7 +70,7 @@ export const servicesArr: Services[] = [
     title: "Generative AI",
     slug: "GenerativeAI",
     description: "Bringing Your Game Visions to Life with Precision and Passion.",
-    image: "/assets/images/projects/irtiqa-ai-logo.png",
+    image: "/assets/images/services/genAI.png",
     tags: ["AI-Powered Solutions", "Machine Learning", "Cutting-Edge Tech"],
     lottieImg:
       "https://lottie.host/18c67767-e41a-477f-93cf-790920be4def/3qw6cOiCXq.lottie",
@@ -120,7 +120,7 @@ export const servicesArr: Services[] = [
     title: "Web Development",
     slug: "WebDevelopment",
     description: "Building responsive and scalable websites tailored to your needs.",
-    image: "/assets/images/projects/irtiqa-ai-logo.png",
+    image: "/assets/images/services/WebDev.jpg",
     tags: ["Responsive Design", "SEO-Optimized", "Fast Loading"],
     lottieImg:
       "https://lottie.host/21454b07-1152-4135-9d23-148900b7812b/uDxNM1EnZt.lottie",
@@ -170,7 +170,7 @@ export const servicesArr: Services[] = [
     title: "Database Security",
     slug: "DatabaseSecurity",
     description: "Fortifying your data with cutting-edge security solutions.",
-    image: "/assets/images/projects/irtiqa-ai-logo.png",
+    image: "/assets/images/services/DatabaseSecurity.png",
     tags: ["Data Encryption", "Access Control", "Secure Architecture"],
     lottieImg:
       "https://lottie.host/0d1fcf45-e2cb-447d-ad2b-98c40c8a1fb9/sg9mYTAEsp.lottie",
@@ -220,7 +220,7 @@ export const servicesArr: Services[] = [
     title: "Blockchain Development",
     slug: "BlockchainDevelopment",
     description: "Unlocking Innovation Through Decentralized Technology",
-    image: "/assets/images/projects/irtiqa-ai-logo.png",
+    image: "/assets/images/services/blockchain.jpg",
     tags: ["Smart Contracts", "Decentralized Apps", "Secure Transactions"],
     lottieImg:
       "https://lottie.host/0bbca5ce-f628-4e5d-a730-29b4f8c0c8d0/eSsaAJGhLZ.lottie",
@@ -270,7 +270,7 @@ export const servicesArr: Services[] = [
     title: "UI/UX Design",
     slug: "UIUXDesign",
     description: "Crafting tailor-made software to solve your unique challenges.",
-    image: "/assets/images/projects/irtiqa-ai-logo.png",
+    image: "/assets/images/services/UIUX Design.jpg",
     tags: ["Intuitive Design", "Enhanced Usability", "Modern Aesthetics"],
     lottieImg:
       "https://lottie.host/5ec4fda7-7e1b-4bd7-b811-85c9c6da83c2/5Eo8m30kcz.lottie",
@@ -320,7 +320,7 @@ export const servicesArr: Services[] = [
     title: "Game Development",
     slug: "GameDevelopment",
     description: "Bringing Your Game Visions to Life with Precision and Passion.",
-    image: "/assets/images/projects/irtiqa-ai-logo.png",
+    image: "/assets/images/services/game.png",
     tags: ["Immersive Experiences", "Cross-Platform", "Advanced Graphics"],
     lottieImg:
       "https://lottie.host/d54fad76-4ee7-4210-9dbb-24d27764fb59/Am6ob0nDN0.lottie",
