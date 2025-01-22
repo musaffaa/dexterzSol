@@ -13,27 +13,27 @@ function ProjectPage() {
     { name: "IRTIQA AI",
       description: "Build A Better World Through Technology",
       image: "/assets/images/projects/irtiqa-ai-logo.png",
-      slug: "IRTIQAAI",
+      path: "/components/details/IRTIQAAI",
     },
     { name: "Art Generator",
       description: "Imagine AI Art Generator.",
       image: "/assets/images/projects/art-generator.png",
-      slug: "ArtGenerator",
+      path: "/components/details/ArtGenerator",
     },
     { name: "PROSPECTX",
       description: "All In One Business Solution.",
       image: "/assets/images/projects/PROSPECTX.png",
-      slug: "PROSPECTX",
+      path: "/components/details/PROSPECTX",
     },
     { name: "Study.com",
       description: "Learn faster. Stay motivated. Study smarter",
       image: "/assets/images/projects/study.png",
-      slug: "Study.com",
+      path: "/components/details/StudyCom",
     },
     { name: "Lazaza",
       description: "AI-Powered Ads.",
       image: "/assets/images/projects/lazaza.png",
-      slug: "Lazaza",
+      path: "/components/details/Lazaza",
     }
   ]
   // const CACHE_KEY = "projectsCache";
@@ -94,7 +94,7 @@ function ProjectPage() {
                     name={project.name}
                     description={project.description}
                     image={project.image}
-                    slug={project.slug}
+                    path={project.path}
                   />
                 </div>
               </div>

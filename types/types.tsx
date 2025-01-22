@@ -2,7 +2,7 @@ export type Project = {
   name: string;
   description: string;
   image: string,
-  slug: string,
+  path: string,
 };
 
 export type Service = {
@@ -41,13 +41,6 @@ export type Services = {
 
 
 export type ServicesCardProp = {
-  name: string;
-  description: string;
-  image: string,
-  slug: string;
-};
-
-export type ProjectCardProps = {
   name: string;
   description: string;
   image: string,

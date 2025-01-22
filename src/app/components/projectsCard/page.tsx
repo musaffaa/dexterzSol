@@ -1,13 +1,14 @@
+"use client"
 import React from "react";
-import { ProjectCardProps } from "../../../../types/types";
+import { Project } from "../../../../types/types";
 import Link from "next/link";
 import Image from "next/image";
 
-const ProjectCard: React.FC<ProjectCardProps> = ({
+const ProjectCard: React.FC<Project> = ({
   name,
   description,
   image,
-  slug,
+  path
 }) => {
   return (
     <div className="relative w-full max-w-[100vh] mx-auto">
@@ -36,7 +37,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           <div className="flex space-x-4">
             {/* Apply Now Button with Gradient */}
             <Link
-              href={`/components/details/${slug}`}
+              href={`${path}`}
               className="px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-400 text-white font-semibold rounded-full shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300"
             >
               See Details

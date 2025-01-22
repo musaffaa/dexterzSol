@@ -1,14 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // output: "export",
+  output: "export",
   /* config options here */
+  // basePath: '/Dexterz',
   images: {
-    remotePatterns: [
-      {
-        hostname: 'cdn.sanity.io',
-      },
-    ],
+    unoptimized: true, // Disable image optimization if you're serving them statically
   },
   typescript: {
     // !! WARN !!
