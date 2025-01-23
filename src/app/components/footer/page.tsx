@@ -138,7 +138,7 @@ function Footer() {
             <li>
               <span className="font-bold">Opening Hours:</span>
               <br />
-              Mon - Sat: 10.00 AM - 4.00 PM
+              Mon - Fri: 12:00 PM - 7:00 PM
             </li>
           </ul>
         </div>

@@ -4,7 +4,6 @@ const DevelopmentProcess = () => {
   return (
     <div className="bg-gray-100 py-12">
       <div className="text-center mb-10">
-        <h4 className="text-blue-600 font-medium uppercase">Working Process</h4>
         <h2 className="text-3xl font-bold">Our Development Process</h2>
       </div>
       <div className="flex flex-col md:flex-row justify-center items-start md:gap-8 px-6">
