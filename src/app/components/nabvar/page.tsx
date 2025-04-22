@@ -74,9 +74,9 @@ function Navbar() {
             <Image
               src="/assets/images/logo/dexterzsol_logo.png"
               alt="Dexterz Sol Logo"
-              width={1000}
+              width={200}
               height={1000}
-              className="h-20 w-auto object-contain"
+              className="h-20 object-contain"
               priority
             />
           </Link>
